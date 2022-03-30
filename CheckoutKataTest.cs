@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Xunit;
 
 namespace CheckoutKata.Test
@@ -12,10 +14,10 @@ namespace CheckoutKata.Test
         public CheckoutPricing()
         {
             subject = new Checkout(
-                new ProductPricing("A", 50, 3, 20),
-                new ProductPricing("B", 30, 2, 15),
-                new ProductPricing("C", 20),
-                new ProductPricing("D", 15));
+                new ProductPricing("A", 10),
+                new ProductPricing("B", 15, 3, 5),
+                new ProductPricing("C", 40),
+                new ProductPricing("D", 55, 2, 27.5));
         }
 
         [Fact]
@@ -172,7 +174,7 @@ namespace CheckoutKata.Test
         private string product;
         private int price;
         private int discountThreshold;
-        private int discountAmount;
+        private double discountAmount;
 
         public ProductPricing(string product, int price)
         {
@@ -180,7 +182,7 @@ namespace CheckoutKata.Test
             this.price = price;
         }
 
-        public ProductPricing(string product, int price, int discountThreshold, int discountAmount)
+        public ProductPricing(string product, int price, int discountThreshold, double discountAmount)
         {
             this.product = product;
             this.price = price;
@@ -197,7 +199,7 @@ namespace CheckoutKata.Test
         {
             if (discountThreshold != 0)
                 if (quantity % discountThreshold == 0)
-                    return price - discountAmount;
+                    return (int)(price - discountAmount);
 
             return price;
         }
